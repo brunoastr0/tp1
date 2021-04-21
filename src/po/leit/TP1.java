@@ -2,6 +2,7 @@ package po.leit;
 
 import po.leit.ui.Le;
 import po.leit.ui.MyCommand;
+import po.leit.org;
 
 import javax.swing.*;
 import java.io.File;
@@ -11,11 +12,13 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+import java.lang.Math;
+
 public class TP1 {
 
     private static MyCommand interC;
     static final int MAX_ALUNOS = 35;
-    private static int alunosLidos=0;
+    private static int alunosLidos = 0;
     private static int notaMax = 0;
     private static int notaMin = 0;
     private static int notaAvg = 0;
@@ -24,9 +27,9 @@ public class TP1 {
     private static int[] notasAlunos = new int[MAX_ALUNOS];
 
     public static void main(String[] args) {
-        boolean querSair=false;
+        boolean querSair = false;
 
-        interC=new MyCommand();
+        interC = new MyCommand();
 
         do {
             interC.limparEcra();
@@ -38,47 +41,47 @@ public class TP1 {
                 interC.showMsg("Comando inválido. Digite help para ajuda");
 
             } else {
-                if  ( cmd.get(0).equalsIgnoreCase("carregar") ) {
+                if (cmd.get(0).equalsIgnoreCase("carregar")) {
                     alunosLidos = loadData(nomeAlunos, "turmaLeit.txt");
                     int notA = loadData(notasAlunos);
-                    if ( alunosLidos != notA ) {
+                    if (alunosLidos != notA) {
                         System.out.println("alunos = " + alunosLidos);
                         System.out.println("notaA = " + notA);
                         interC.showMsg("Erro carregando dados");
                     }
-                        
+
                     else
 
                         interC.showMsg("Dados carregados OK!");
-                } else if (cmd.get(0).equalsIgnoreCase("listar") ) {
+                } else if (cmd.get(0).equalsIgnoreCase("listar")) {
                     mostrarAlunos();
 
-                } else if (cmd.get(0).equalsIgnoreCase("paginar") ) {
+                } else if (cmd.get(0).equalsIgnoreCase("paginar")) {
                     String input = JOptionPane.showInputDialog("Nũmeros estudantes por pãgina :");
                     int numeroU = Integer.parseInt(input);
                     mostrarAlunos(numeroU);
 
-                } else if (cmd.get(0).equalsIgnoreCase("mostrarp") ) {
+                } else if (cmd.get(0).equalsIgnoreCase("mostrarp")) {
                     mostrarPauta();
 
-                } else if (cmd.get(0).equalsIgnoreCase("mostrarr") ) {
+                } else if (cmd.get(0).equalsIgnoreCase("mostrarr")) {
                     mostraResumo();
 
-                } else if (cmd.get(0).equalsIgnoreCase("top") ) {
+                } else if (cmd.get(0).equalsIgnoreCase("top")) {
                     mostrarTop();
 
-                } else if (cmd.get(0).equalsIgnoreCase("pesquisarnome") ) {
+                } else if (cmd.get(0).equalsIgnoreCase("pesquisarnome")) {
                     String nomePesq = JOptionPane.showInputDialog("O que procura  :");
                     pesquisar(nomePesq);
 
-                } else if (cmd.get(0).equalsIgnoreCase("pesquisarnota") ) {
+                } else if (cmd.get(0).equalsIgnoreCase("pesquisarnota")) {
                     String vaPesq = JOptionPane.showInputDialog("O que procura  :");
                     int notaPesq = Integer.parseInt(vaPesq);
                     pesquisar(notaPesq);
-                } else if (cmd.get(0).equalsIgnoreCase("help") ) {
+                } else if (cmd.get(0).equalsIgnoreCase("help")) {
                     interC.showHelp();
 
-                } else if (cmd.get(0).equalsIgnoreCase("terminar") ) {
+                } else if (cmd.get(0).equalsIgnoreCase("terminar")) {
                     querSair = true;
                 }
             }
@@ -88,10 +91,10 @@ public class TP1 {
     }
 
     /**
-     * Método implementado por Prof. Não devem alterar. Este método recebe
-     * como parâmetros um array e um ficheiro
-     * Lẽ cada linha do ficheiro e guarda no array. Retorna o número
-     * de linhas que forma lidas do ficheiro.
+     * Método implementado por Prof. Não devem alterar. Este método recebe como
+     * parâmetros um array e um ficheiro Lẽ cada linha do ficheiro e guarda no
+     * array. Retorna o número de linhas que forma lidas do ficheiro.
+     * 
      * @param lAlunos
      * @param nomeFicheiro
      * @return quantos nomes foram lidos do ficheiro -1 se não possível ler ficheiro
@@ -99,7 +102,7 @@ public class TP1 {
     public static int loadData(String[] lAlunos, String nomeFicheiro) {
         Scanner in = null;
         File inputFile = new File(nomeFicheiro);
-        //PrintWriter out = new PrintWriter(outputFileName);
+        // PrintWriter out = new PrintWriter(outputFileName);
         try {
             in = new Scanner(inputFile);
         } catch (FileNotFoundException e) {
@@ -109,7 +112,7 @@ public class TP1 {
         int i = 0;
         while (in.hasNextLine()) {
             String nomeAl = in.nextLine();
-            if ( (nomeAl != null) && !(nomeAl.isBlank()) && !(nomeAl.isEmpty() ) ) {
+            if ((nomeAl != null) && !(nomeAl.isBlank()) && !(nomeAl.isEmpty())) {
                 lAlunos[i] = nomeAl;
                 i++;
             }
@@ -120,16 +123,18 @@ public class TP1 {
     }
 
     /**
-     * Método implementado por Prof. Não devem alterar. Este método recebe
-     * como parâmetros um array de inteiros e vai gerar aleatoriamente valores inteiros entre
-     * 0 e 20 que representam a nota de cada aluno.
+     * Método implementado por Prof. Não devem alterar. Este método recebe como
+     * parâmetros um array de inteiros e vai gerar aleatoriamente valores inteiros
+     * entre 0 e 20 que representam a nota de cada aluno.
+     * 
      * @param lNotas
-     * @return how much name was read from the files -1 if was not able to read the file
+     * @return how much name was read from the files -1 if was not able to read the
+     *         file
      */
     public static int loadData(int[] lNotas) {
         Random rand = new Random();
         int cont = 0;
-        for (cont=0; cont < alunosLidos; cont++) {
+        for (cont = 0; cont < alunosLidos; cont++) {
             int randomNum = rand.nextInt(20) + 1;
             notasAlunos[cont] = randomNum;
         }
@@ -137,78 +142,253 @@ public class TP1 {
     }
 
     /**
-     * Método a ser implementando no TP1.
-     * O método deverá listar todos os nomes dos alunos guardados no array nomesAlunos.
-     * O método deverá verificar se já foi carregado os dados para o array. Se sim mostra os
-     * nomes dos alunos. Senão deve mostrar a mensagem "Não há dados"
+     * Método a ser implementando no TP1. O método deverá listar todos os nomes dos
+     * alunos guardados no array nomesAlunos. O método deverá verificar se já foi
+     * carregado os dados para o array. Se sim mostra os nomes dos alunos. Senão
+     * deve mostrar a mensagem "Não há dados"
+     * 
      * @param
      * @return
      */
     public static void mostrarAlunos() {
-        interC.showMsg("A ser implementado ...");
+        if(nomeAlunos[0] == null){
+           interC.showMsg("Nao ha dados");
+        }else{
+
+
+        
+        int cont = 0;
+        System.out.println("Codigo" + " " + "Nome estudante");
+        for (String aluno : nomeAlunos) {
+            if (aluno == null)
+                continue;
+            cont++;
+            System.out.println(cont + "  " + aluno);
+
+        }
+        interC.showMsg("Enter para sair");
+    }
+
     }
 
     /**
-     * Método a ser implementando no TP1
-     * O método deverá listar todos os nomes dos alunos guardados no array nomesAlunos.
-     * O método deverá verificar se já foi carregado os dados para o array. Se sim mostra os
-     * nomes dos alunos. Senão deve mostrar a mensagem "Não há dados".
-     * Neste método os dados não são mostrados todos de uma só vez. Devem ser apresentados até encher a tela.
-     * Vamos supor que 10 nomes enchem a tela. Então deverá ser apresentados de 10 em 10. Esse número
-     * que indica quantos nomes enchem a tela é um parâmetro do método.
+     * Método a ser implementando no TP1 O método deverá listar todos os nomes dos
+     * alunos guardados no array nomesAlunos. O método deverá verificar se já foi
+     * carregado os dados para o array. Se sim mostra os nomes dos alunos. Senão
+     * deve mostrar a mensagem "Não há dados". Neste método os dados não são
+     * mostrados todos de uma só vez. Devem ser apresentados até encher a tela.
+     * Vamos supor que 10 nomes enchem a tela. Então deverá ser apresentados de 10
+     * em 10. Esse número que indica quantos nomes enchem a tela é um parâmetro do
+     * método.
+     * 
      * @param tela é um inteiro que indica quantos alunos são mostrados.
      */
     public static void mostrarAlunos(int tela) {
-            interC.showMsg("A ser implementado ...");
-        }
+        if(nomeAlunos[0] == null){
+            /**Testar se o ficheiro foi carregada ou nao
+             * Se nao, mostrar a mensagem 'Nao ha dados', e sair
+             */
+            interC.showMsg("Nao ha dados");
+            
+         }else{
+        int cont = 0, cod = 0;
+        int jump = (alunosLidos / tela) + 1;/**variavel que armazena o limite do primeiro loop, este que
+                                            *é responsavel pela paginaçao
+                                            *este loop servira como paginas  */
+        for (int j = 1; j <= jump; j++) {
+            System.out.println("Codigo"+"  "+"Nome estudante");
+            System.out.println();
+            for (int i = cont; i < ((j * tela)<nomeAlunos.length?j*tela:(j)*tela-1); i++) {
+                /**Segundo loop que sera responsavel por mostrar os nomes,
+                 * ((j * tela)<nomeAlunos.length?j*tela:(j)*tela-1)-> operador ternario que vai definir o limite do loop,
+                 * sendo que o limite do loop vai variar de acordo com o numero de nomes por paginas
+                 * o operador ternario funciona da seguinte forma: se o resultado de j*tela[j sendo o indice do primeiro loop, 
+                 * e tela o numero de nome por paginas] for menor que o tamanho do array de nome, entao o limite sera j*tela, 
+                 * se for maior entao sera j*tela-1 para impedir que o indice ter o valor maior que i limite do array 
+                 */
+                 
+                    if (nomeAlunos[i] == null)
+                    /**Se encontrar espaços vazios para sair do loop
+                     * So funciona se espaços vazios se encontrarem no fim do array
+                     */
+                        break;
 
+                    System.out.println(cod+"  "+nomeAlunos[i]);
+                    cod++;
+                
+            }
+            
+                cont += tela;/**var cont sera responsavel pelo valor da variavel i do segundo loop 
+                            *a variavel i tem quer dinamica, como o limite, assim sempre que todos nomes forem mostrados,
+                            de acordo com o numero de nomes por paginas forem escolhidos, a variavel i começara no indice do proximo nome,
+                            ou seja, o indice onde começou a pagina, ex:4, mais o numero de nomes por paginas que foram escolhidos, ex:4+4,
+                            assim o proximo nome que inicializara a pagina estara no indice 8, assim sucessivamente   */
+               
+
+
+                interC.showMsg("Enter para continuar...");
+            
+        }}
+
+    }
 
     /**
-     * Método a ser implementando no TP1.
-     * O método deverá percorrer o array de notas, calcular o valor da média aritmética de notas, a nota máximo e
-     * a nota mínima.
-     * Os valores calculados devem ser guaraddos na variáveis notaAVG (média),
-     * notaMax (nota máxima) e notaMin(nota mínima)
-     * Devem validar se o array de notas tem elementos. Se estiver vazio devem somente apresentar
-     * a mensagem "Não há dados"
+     * Método a ser implementando no TP1. O método deverá percorrer o array de
+     * notas, calcular o valor da média aritmética de notas, a nota máximo e a nota
+     * mínima. Os valores calculados devem ser guaraddos na variáveis notaAVG
+     * (média), notaMax (nota máxima) e notaMin(nota mínima) Devem validar se o
+     * array de notas tem elementos. Se estiver vazio devem somente apresentar a
+     * mensagem "Não há dados"
      */
     private static void calcularMaxMinAvg() {
-        interC.showMsg("A ser implementado ...");
+        if(notasAlunos[0] ==0){
+            interC.showMsg("Nao ha dados");
+            return;
+        }
+        int sum=0, max = 0,min=0;
+        for (int indice = 0; indice < notasAlunos.length; indice++) {
+            if (notasAlunos[indice] > max) {
+                max = notasAlunos[indice];
+                
+            }
+            else if(notasAlunos[indice]<min){
+                min = notasAlunos[indice];
+            }
+            sum+=notasAlunos[indice];
+        }
+        notaAvg = sum / notasAlunos.length;
+        notaMax = max;
+        notaMin = min;
+
+        System.out.println("Nota maxima = "+notaMax+" Nota minimia = "+notaMin);
+        System.out.println("Media da turma = "+notaAvg);
 
     }
 
     /**
-     * Método a ser implementando no TP1.
-     * O método deverá apresentar um resumo da avaliação;
-     * Nota máxima, Nota mínima, Nota média. Número de alunos com nota superior a média e número de alunos com
-     * nota inferior a média.
-     * a mensagem "Não há dados"
+     * Método a ser implementando no TP1. O método deverá apresentar um resumo da
+     * avaliação; Nota máxima, Nota mínima, Nota média. Número de alunos com nota
+     * superior a média e número de alunos com nota inferior a média. a mensagem
+     * "Não há dados"
      */
     public static void mostraResumo() {
-        interC.showMsg("A ser implementado ...");
+        int contSup = 0, contInf = 0;
+        System.out.println(alunosLidos+" alunos presentes");
+     
+        calcularMaxMinAvg();
+        for(int i = 0; i<notasAlunos.length;i++){
+            if(notasAlunos[i]>notaAvg){
+                contSup++;
+            }else
+            contInf++;
+        }
+        System.out.println(contSup+" alunos com nota superior a media");
+        System.out.println(contInf+" alunos com nota inferior a media");
+
+        interC.showMsg("Enter para continuar ...");
 
     }
 
     /**
-     * Método a ser implementando no TP1.
-     * O método deverá apresentar o nome dos três alunos que têm as melhores notas.
+     * Método a ser implementando no TP1. O método deverá apresentar o nome dos três
+     * alunos que têm as melhores notas.
      */
+
+  
     public static void mostrarTop() {
-        interC.showMsg("A ser implementado ...");
+ 
+        if(notasAlunos[0]==0){
+            interC.showMsg("Nao ha dados");
+            return;
+
+        }
+        /**Variaves */
+         String[] alunoTop = new String[3];
+         int[] notasTop = new int[3];
+
+        int maxValue = -1;
+        int index = 0;
+
+        int[] copyNum = new int[notasAlunos.length];
+
+        /** */
+        /**Codigo paa copiar um array para o outro */
+        for(int i = 0; i<copyNum.length;i++){
+            copyNum[i] = notasAlunos[i];
+        }
+
+       
+        for (int j = 0; j < 3; j++) {
+
+            for (int indice = 0; indice < copyNum.length; indice++) {
+                if (copyNum[indice] > maxValue) {
+                    maxValue = copyNum[indice];
+                    index = indice;
+                }
+            }
+            notasTop[j] = maxValue;
+            alunoTop[j] = nomeAlunos[index];
+            maxValue = -1;
+            copyNum[index] = -1;
+        }
+       
+        System.out.println();
+        for(int i = 0; i<3;i++){
+            System.out.println(alunoTop[i] +" -> "+notasTop[i]);
+
+        }
+
+   
+
+
+        interC.showMsg("Enter para continuar ...");
 
     }
+
     /**
-     * Método a ser implementando no TP1.
-     * Apresentar a pauta com nomes dos alunos e á frente cada nome a respectiva nota obtida.
+     * Método a ser implementando no TP1. Apresentar a pauta com nomes dos alunos e
+     * á frente cada nome a respectiva nota obtida.
      */
     public static void mostrarPauta() {
-        interC.showMsg("A ser implementado ...");
+        if(notasAlunos[0]==0){
+            interC.showMsg("Nao ha dados");
+            return;
+
+        }
+        int jump = (alunosLidos / 10) + 1;
+        int cont = 0, cod= 0;
+        for(int j=1; j<=jump;j++){
+            System.out.println("codigo"+"     "+"Nome estudante"+"   "+"Nota");
+            for (int i = cont; i < ((j * 10)<nomeAlunos.length?j*10:(j)*10-1); i++){
+
+                if (nomeAlunos[i] == null)
+                /**Se encontrar espaços vazios para sair do loop
+                 * So funciona se espaços vazios se encontrarem no fim do array
+                 */
+                    break;
+
+                System.out.println(cod+"  "+nomeAlunos[i]+ "->       "+notasAlunos[i]);
+                cod++;
+            
+        }
+        
+            cont += 10;
+            interC.showMsg("A ser implementado ...");
+            }
+        
+       
+
+
+       
 
     }
+
     /**
-     * Método a ser implementando no TP1
-     * Apresentar para um aluno específico em que o nome é dado como parâmetro a nota de avaliação
-     * @param nome é uma string contendo o nome do aluno que queremos apresentar a sua nota
+     * Método a ser implementando no TP1 Apresentar para um aluno específico em que
+     * o nome é dado como parâmetro a nota de avaliação
+     * 
+     * @param nome é uma string contendo o nome do aluno que queremos apresentar a
+     *             sua nota
      * @return
      */
     public static void mostrarDetalhesAluno(String nome) {
@@ -217,24 +397,71 @@ public class TP1 {
     }
 
     /**
-     * Método a ser implementando no TP1
-     * O método deverá pedir um nome e pesquisar o array de nomes. Caso existir ou caso existem nomes
-     * parecidos apresentar a lista de nomes. Nomes parecidos são nomes que iniciam com as mesmas duas ou três
-     * primeiras letras. Ou apelidos iguais.
+     * Método a ser implementando no TP1 O método deverá pedir um nome e pesquisar o
+     * array de nomes. Caso existir ou caso existem nomes parecidos apresentar a
+     * lista de nomes. Nomes parecidos são nomes que iniciam com as mesmas duas ou
+     * três primeiras letras. Ou apelidos iguais.
      */
     public static void pesquisar(String nome) {
-        interC.showMsg("A ser implementado ...");
+         
+        for(String aluno: nomeAlunos){
+            String str = aluno;
+            if (aluno == null){ /*Se o programa estiver a ler um valor null, para este passar para a proxima instruçao*/ 
+            System.out.println("Nao ha dados"); 
+            continue;}
+            else{
+
+            String last;
+
+            String [] strSp = str.split(" ",2);/* Instruçao para separar o nome do apelido. Cria um array de String*/
+            String first = strSp[0];
+            String[] nameMiddle = strSp[1].split(" ",2);/*Instruçao para separar os apelidos com duas palavras (Ex:Elmer dos Santos). Cria um array de String */
+
+            if(nameMiddle.length > 1){/*Se o apelido tiver duas palavras: */ 
+
+                last = nameMiddle[1];//Armazenar o ultimo elemento do array, que sera o apelido, na variavel last
+            }else{
+                last = nameMiddle[0];//Caso o array tiver um elemento, esse elemento sera o apelido
+            }
+           
+            
+            if(nome.equalsIgnoreCase(first) || nome.equalsIgnoreCase(last) ){//Testar se foi introduzido o apelido ou o primeiro nome
+               System.out.println(aluno);//Mostrar o(s) nome(s)/apelido(s) pesquisados
+           }
+        }
+           
+           
+
+        }
+
+
+
+
+        interC.showMsg("Enter para continuar ...");
 
     }
 
     /**
-     * Método a ser implementando no TP1
-     * O método deverá pedir um nome e pesquisar o array de nomes. Caso existir ou caso existem nomes
-     * parecidos apresentar a lista de nomes. Nomes parecidos são nomes que iniciam com as mesmas duas ou três
-     * primeiras letras. Ou apelidos iguais.
+     * Método a ser implementando no TP1 O método deverá pedir um nome e pesquisar o
+     * array de nomes. Caso existir ou caso existem nomes parecidos apresentar a
+     * lista de nomes. Nomes parecidos são nomes que iniciam com as mesmas duas ou
+     * três primeiras letras. Ou apelidos iguais.
      */
     public static void pesquisar(int nota) {
-        interC.showMsg("A ser implementado ...");
+        if(notasAlunos[0]==0){
+            System.out.println("Nao ha dados");
+            return;
+        }
+        System.out.println(notasAlunos[0]);
+        System.out.println("Nome estudante"+"     "+"NOtas");
+        for(int i = 0; i< notasAlunos.length;i++){
+            if(nota == notasAlunos[i]){
+                System.out.println(nomeAlunos[i]+"  "+notasAlunos[i]);
+            }else{
+                System.out.println("Nao existe aluno com esta nota");}
+        }
+
+        interC.showMsg("Enter para continuar ...");
 
     }
 
