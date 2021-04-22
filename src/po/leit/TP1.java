@@ -293,10 +293,22 @@ public class TP1 {
      * "Não há dados"
      */
     public static void mostraResumo() {
+        if(nomeAlunos[0]==null){
+            /*
+            * Se o programa estiver a ler um valor null, para este passar para a proxima
+            * instruçao
+                */
+            
+            interC.showMsg("Nao ha dados ...");
+            return;}
+
         int contSup = 0, contInf = 0;
         System.out.println(alunosLidos + " alunos presentes");
+        System.out.println("-------------------------------------------");
 
         calcularMaxMinAvg();
+        System.out.println("-------------------------------------------");
+
         for (int i = 0; i < notasAlunos.length; i++) {
             if (notasAlunos[i] > notaAvg) { //Se encontrar uma nota maior que a media
                 contSup++;                   //incrementar o valor da variavel contSup(contar superior)
@@ -306,6 +318,8 @@ public class TP1 {
         }
         System.out.println(contSup + " alunos com nota superior a media");
         System.out.println(contInf + " alunos com nota inferior a media");
+        System.out.println("--------------------------------------------");
+
 
         interC.showMsg("Enter para continuar ...");
 
@@ -424,40 +438,44 @@ public class TP1 {
      * três primeiras letras. Ou apelidos iguais.
      */
     public static void pesquisar(String nome) {
-
+        if(nomeAlunos[0]==null){
+            /*
+            * Se o programa estiver a ler um valor null, para este passar para a proxima
+            * instruçao
+                */
+            
+            interC.showMsg("Nao ha dados ...");
+            return;
+        }
         for (String aluno : nomeAlunos) {
-            String str = aluno;
-            if (aluno == null) { /*
-                                  * Se o programa estiver a ler um valor null, para este passar para a proxima
-                                  * instruçao
-                                  */
-                System.out.println("Nao ha dados");
-                continue;
-            } else {
+            /**String str = aluno;
+
+        
 
                 String last;
 
-                String[] strSp = str.split(" ",
-                        2);/* Instruçao para separar o nome do apelido. Cria um array de String */
+                String[] strSp = str.split(" ",2);/* Instruçao para separar o nome do apelido. Cria um array de String 
                 String first = strSp[0];
                 String[] nameMiddle = strSp[1].split(" ", 2);/*
                                                               * Instruçao para separar os apelidos com duas palavras
                                                               * (Ex:Elmer dos Santos). Cria um array de String (ex:[dos, Santos])
-                                                              */
+                                                              
 
-                if (nameMiddle.length > 1) {/* Se o apelido tiver duas palavras: (ex:Elmes dos Santos)*/
+                if (nameMiddle.length > 1) {/* Se o apelido tiver duas palavras: (ex:Elmes dos Santos)
 
                     last = nameMiddle[1];// Armazenar o ultimo elemento do array, que sera o apelido, na variavel last [dos, santos]
                 } else {
                     last = nameMiddle[0];// Caso o array tiver um elemento, esse elemento sera o apelido ex:Bruno Angelo
                                         //array = [angelo]
-                }
-
-                if (nome.equalsIgnoreCase(first) || nome.equalsIgnoreCase(last)) {// Testar se foi introduzido o apelido
+                }*/
+                
+                if(aluno == null)continue;
+                if ((aluno.toLowerCase()).contains(nome.toLowerCase())) {// Testar se foi introduzido o apelido
                                                                                   // ou o primeiro nome
+          
                     System.out.println(aluno);// Mostrar o(s) nome(s)/apelido(s) pesquisados
                 }
-            }
+            
 
         }
 
@@ -473,17 +491,15 @@ public class TP1 {
      */
     public static void pesquisar(int nota) {
         if (notasAlunos[0] == 0) {
-            System.out.println("Nao ha dados");
+            interC.showMsg("Nao ha dados ...");
             return;
         }
-        System.out.println(notasAlunos[0]);
-        System.out.println("Nome estudante" + "     " + "NOtas");
+      
+        System.out.println("Nome estudante" + "     " + "Notas");
         for (int i = 0; i < notasAlunos.length; i++) {
             if (nota == notasAlunos[i]) {
                 System.out.println(nomeAlunos[i] + "  " + notasAlunos[i]);
-            } else {
-                System.out.println("Nao existe aluno com esta nota");
-            }
+            } 
         }
 
         interC.showMsg("Enter para continuar ...");
