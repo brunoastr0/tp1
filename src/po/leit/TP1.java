@@ -153,26 +153,28 @@ public class TP1 {
      */
     public static void mostrarAlunos() {
         if (nomeAlunos[0] == null) {
-            interC.showMsg("Nao ha dados");/**Se o primeiro elemento do array estiver vazio 
-                                            assumimos que o resto do array esta vazio,
-                                            entao terminamos o metodo com a instruçao return */
+            interC.showMsg("Nao ha dados");/**
+                                            * Se o primeiro elemento do array estiver vazio assumimos que o resto do
+                                            * array esta vazio, entao terminamos o metodo com a instruçao return
+                                            */
             return;
-        } 
+        }
 
-            int cod = 0;
-            System.out.println("Codigo" + " " + "Nome estudante"); /**
-                                                                    O array é percorrido utilizando o forEach*/
-            for (String aluno : nomeAlunos) {
-                final DecimalFormat decimal = new DecimalFormat("00000");
+        int cod = 0;
+        System.out.println("Codigo" + " " + "Nome estudante");
+        /**
+         * O array é percorrido utilizando o forEach
+         */
+        for (String aluno : nomeAlunos) {
+            final DecimalFormat decimal = new DecimalFormat("00000");
 
-                if (aluno == null) //Se  tentar ler um valor null para saltar as proximas instruçoes
-                    continue;
-                System.out.print(decimal.format(cod++)+" ");
-                System.out.printf("%-20s", aluno);
-                System.out.println();
-            }
-            interC.showMsg("Enter para sair");
-        
+            if (aluno == null) // Se tentar ler um valor null para saltar as proximas instruçoes
+                continue;
+            System.out.print(decimal.format(cod++) + " ");
+            System.out.printf("%-20s", aluno);
+            System.out.println();
+        }
+        interC.showMsg("Enter para sair");
 
     }
 
@@ -197,56 +199,54 @@ public class TP1 {
             interC.showMsg("Nao ha dados");
             return;
 
-        } 
-            int cont = 0, cod = 1;
-            int jump = (alunosLidos / tela) + 1;
-            /**
-             * variavel que armazena o limite do primeiro loop, este que é responsavel pela
-             * paginaçao este loop servira como paginas
-             */
-            for (int j = 1; j <= jump; j++) {
-                System.out.println("Codigo" + "  " + "Nome estudante");
-                System.out.println();
-                for (int i = cont; i < ((j * tela) < nomeAlunos.length ? j * tela : (j) * tela - 1); i++) {
-                    final DecimalFormat decimal = new DecimalFormat("00000");
+        }
+        int cont = 0, cod = 1;
+        int jump = (alunosLidos / tela) + 1;
+        /**
+         * variavel que armazena o limite do primeiro loop, este que é responsavel pela
+         * paginaçao este loop servira como paginas
+         */
+        for (int j = 1; j <= jump; j++) {
+            System.out.println("Codigo" + "  " + "Nome estudante");
+            System.out.println();
+            for (int i = cont; i < ((j * tela) < alunosLidos ? j * tela : j * tela - 1); i++) {
+                final DecimalFormat decimal = new DecimalFormat("00000");
+                /**
+                 * Segundo loop que sera responsavel por mostrar os nomes, ((j *
+                 * tela)<nomeAlunos.length?j*tela:(j)*tela-1)-> operador ternario que vai
+                 * definir o limite do loop, sendo que o limite do loop vai variar de acordo com
+                 * o numero de nomes por paginas o operador ternario funciona da seguinte forma:
+                 * se o resultado de j*tela[j sendo o indice do primeiro loop, e tela o numero
+                 * de nome por paginas] for menor que o tamanho do array de nome, entao o limite
+                 * sera j*tela, se for maior entao sera j*tela-1 para impedir que o indice ter o
+                 * valor maior que i limite do array
+                 */
+
+                if (nomeAlunos[i] == null)
                     /**
-                     * Segundo loop que sera responsavel por mostrar os nomes, ((j *
-                     * tela)<nomeAlunos.length?j*tela:(j)*tela-1)-> operador ternario que vai
-                     * definir o limite do loop, sendo que o limite do loop vai variar de acordo com
-                     * o numero de nomes por paginas o operador ternario funciona da seguinte forma:
-                     * se o resultado de j*tela[j sendo o indice do primeiro loop, e tela o numero
-                     * de nome por paginas] for menor que o tamanho do array de nome, entao o limite
-                     * sera j*tela, se for maior entao sera j*tela-1 para impedir que o indice ter o
-                     * valor maior que i limite do array
+                     * Se encontrar espaços vazios para sair do loop So funciona se espaços vazios
+                     * se encontrarem no fim do array
                      */
+                    break;
 
-                    if (nomeAlunos[i] == null)
-                        /**
-                         * Se encontrar espaços vazios para sair do loop So funciona se espaços vazios
-                         * se encontrarem no fim do array
-                         */
-                        break;
+                System.out.print(decimal.format(cod++) + "  ");
+                System.out.printf("%-20s", nomeAlunos[i]);
+                System.out.println();
 
-                    System.out.print(decimal.format(cod++) + "  " );
-                    System.out.printf("%-20s",nomeAlunos[i]);
-                    System.out.println();
-                   
+            }
 
-                }
+            cont += tela;/**
+                          * var cont sera responsavel pelo valor da variavel i do segundo loop, a
+                          * variavel i tem quer dinamica, assim como o limite do loop, assim sempre que
+                          * todos os nomes forem mostrados, de acordo com o numero de nomes por paginas
+                          * que foram escolhidos, a variavel i começara no indice do proximo nome, ou
+                          * seja, o indice onde começou a pagina( ex:4) mais o numero de nomes por
+                          * paginas que foram escolhidos( ex:4+4), assim o proximo nome que inicializara
+                          * a pagina estara no indice 8, assim sucessivamente
+                          */
 
-                cont += tela;/**
-                              * var cont sera responsavel pelo valor da variavel i do segundo loop a variavel
-                              * i tem quer dinamica, como o limite, assim sempre que todos nomes forem
-                              * mostrados, de acordo com o numero de nomes por paginas forem escolhidos, a
-                              * variavel i começara no indice do proximo nome, ou seja, o indice onde começou
-                              * a pagina, ex:4, mais o numero de nomes por paginas que foram escolhidos,
-                              * ex:4+4, assim o proximo nome que inicializara a pagina estara no indice 8,
-                              * assim sucessivamente
-                              */
+            interC.showMsg("Enter para continuar...");
 
-                interC.showMsg("Enter para continuar...");
-
-            
         }
 
     }
@@ -265,19 +265,16 @@ public class TP1 {
             return;
         }
         int sum = 0, max = 0, min = 0;
-        for (int indice = 0; indice < notasAlunos.length; indice++) {//percorrendo o array notas
-            if (notasAlunos[indice] > max) { //defininfo o maior valor do array
-                max = notasAlunos[indice];  //Se encontar uma nota maior que o atual valor da variavel max,
-                                           //a variavel max recebera o valor da nota
-               
+        for (int indice = 0; indice < alunosLidos; indice++) {
+            if (notasAlunos[indice] > max) {
+                max = notasAlunos[indice];
 
             } else if (notasAlunos[indice] < min) {
-                min = notasAlunos[indice];//Se encontar uma nota menor que o atual valor da variavel min,
-                                        //a variavel min recebera o valor da nota
+                min = notasAlunos[indice];
             }
-            sum += notasAlunos[indice];//somando as notas
+            sum += notasAlunos[indice];
         }
-        notaAvg = sum / notasAlunos.length;
+        notaAvg = sum / alunosLidos;
         notaMax = max;
         notaMin = min;
 
@@ -293,14 +290,15 @@ public class TP1 {
      * "Não há dados"
      */
     public static void mostraResumo() {
-        if(nomeAlunos[0]==null){
+        if (nomeAlunos[0] == null) {
             /*
-            * Se o programa estiver a ler um valor null, para este passar para a proxima
-            * instruçao
-                */
-            
+             * Se o programa estiver a ler um valor null, para este passar para a proxima
+             * instruçao
+             */
+
             interC.showMsg("Nao ha dados ...");
-            return;}
+            return;
+        }
 
         int contSup = 0, contInf = 0;
         System.out.println(alunosLidos + " alunos presentes");
@@ -310,16 +308,15 @@ public class TP1 {
         System.out.println("-------------------------------------------");
 
         for (int i = 0; i < notasAlunos.length; i++) {
-            if (notasAlunos[i] > notaAvg) { //Se encontrar uma nota maior que a media
-                contSup++;                   //incrementar o valor da variavel contSup(contar superior)
+            if (notasAlunos[i] > notaAvg) { // Se encontrar uma nota maior que a media
+                contSup++; // incrementar o valor da variavel contSup(contar superior)
             } else
-                contInf++;                  //caso contrario incrementar a variavel contInf(contar inferior)
+                contInf++; // caso contrario incrementar a variavel contInf(contar inferior)
 
         }
         System.out.println(contSup + " alunos com nota superior a media");
         System.out.println(contInf + " alunos com nota inferior a media");
         System.out.println("--------------------------------------------");
-
 
         interC.showMsg("Enter para continuar ...");
 
@@ -338,12 +335,13 @@ public class TP1 {
 
         }
         /** Variaves */
-        String[] alunoTop = new String[3];      /**
-                                                *Array alunoTop do tipo string armanezara os tres alunos com as melhores nota
-                                                *O array notasTop armanezara as tres(3) melhores notas */
+        String[] alunoTop = new String[3]; /**
+                                            * Array alunoTop do tipo string armanezara os tres alunos com as melhores
+                                            * nota O array notasTop armanezara as tres(3) melhores notas
+                                            */
         int[] notasTop = new int[3];
 
-        int maxValue = -1; 
+        int maxValue = -1;
         int index = 0;
 
         int[] copyNum = new int[notasAlunos.length];
@@ -354,27 +352,32 @@ public class TP1 {
             copyNum[i] = notasAlunos[i];
         }
 
-        for (int j = 0; j < 3; j++) { //este for sera responsavel pela repetiçao da busca pelo maior 3 vezes 
-                                    //e armazenar os 3 maiores valores no array notasTop e os respetivos aluno no array alunoTop
+        for (int j = 0; j < 3; j++) { // este for sera responsavel pela repetiçao da busca pelo maior 3 vezes
+                                      // e armazenar os 3 maiores valores no array notasTop e os respetivos aluno no
+                                      // array alunoTop
 
-            for (int indice = 0; indice < copyNum.length; indice++) {//iteraçao responsavel pela busca do maior valor
-                if (copyNum[indice] > maxValue) { //identificar o valor maximo do array
-                    maxValue = copyNum[indice]; //armazenar esse valor no var maxValue
-                    index = indice;             /**armazenar o indice para conseguir o nome do aluno,
-                                                *ja que o nome do aluno e a nota estao na mesma posiçao, mas em arrays diferentes  */
+            for (int indice = 0; indice < copyNum.length; indice++) {// iteraçao responsavel pela busca do maior valor
+                if (copyNum[indice] > maxValue) { // identificar o valor maximo do array
+                    maxValue = copyNum[indice]; // armazenar esse valor no var maxValue
+                    index = indice; /**
+                                     * armazenar o indice para conseguir o nome do aluno, ja que o nome do aluno e a
+                                     * nota estao na mesma posiçao, mas em arrays diferentes
+                                     */
                 }
-            }//fim do segundo for
+            } // fim do segundo for
 
-            notasTop[j] = maxValue;  //armazenar o maior valor no array notas top
-            alunoTop[j] = nomeAlunos[index]; //armazenar o nome do aluno na array alunoTop, utilizando indice guardado anteriormente
-            maxValue = -1;                  //fazer reset da variavel maxValue, para armazenar outro valor maior
-            copyNum[index] = -1;   
-                     //retirar o atual valor maior do array para que na proxima iteraçao nao seja definido como maior
-        }//fim do primeiro for
+            notasTop[j] = maxValue; // armazenar o maior valor no array notas top
+            alunoTop[j] = nomeAlunos[index]; // armazenar o nome do aluno na array alunoTop, utilizando indice guardado
+                                             // anteriormente
+            maxValue = -1; // fazer reset da variavel maxValue, para armazenar outro valor maior
+            copyNum[index] = -1;
+            // retirar o atual valor maior do array para que na proxima iteraçao nao seja
+            // definido como maior
+        } // fim do primeiro for
 
         System.out.println();
         for (int i = 0; i < 3; i++) {
-            System.out.printf("%-20s",alunoTop[i]);
+            System.out.printf("%-20s", alunoTop[i]);
             System.out.println(notasTop[i]);
 
         }
@@ -397,22 +400,17 @@ public class TP1 {
         int cont = 0, cod = 1;
         for (int j = 1; j <= jump; j++) {
             System.out.println("codigo" + "   " + "Nome estudante" + "   " + "Nota");
-            for (int i = cont; i < ((j * 10) < nomeAlunos.length ? j * 10 : (j) * 10 - 1); i++) {//mesmo codigo do metodo paginar
+            for (int i = cont; i < ((j * 10) < nomeAlunos.length ? j * 10 : (j) * 10 - 1); i++) {
+
                 final DecimalFormat decimal = new DecimalFormat("00000");
                 if (nomeAlunos[i] == null)
-                    /**
-                     * Se encontrar espaços vazios para sair do loop So funciona se espaços vazios
-                     * se encontrarem no fim do array
-                     */
                     break;
-                System.out.print(decimal.format(cod++)+" ");
-                System.out.printf("%-20s",nomeAlunos[i]);
+                System.out.print(decimal.format(cod++) + " ");
+                System.out.printf("%-20s", nomeAlunos[i]);
                 System.out.println(notasAlunos[i]);
-                
 
             }
-
-            cont += 10;//mesmo codigo do metodo paginar
+            cont += 10;
             interC.showMsg("A ser implementado ...");
         }
 
@@ -438,44 +436,18 @@ public class TP1 {
      * três primeiras letras. Ou apelidos iguais.
      */
     public static void pesquisar(String nome) {
-        if(nomeAlunos[0]==null){
-            /*
-            * Se o programa estiver a ler um valor null, para este passar para a proxima
-            * instruçao
-                */
-            
+        if (nomeAlunos[0] == null) {
+
             interC.showMsg("Nao ha dados ...");
             return;
         }
         for (String aluno : nomeAlunos) {
-            /**String str = aluno;
 
-        
-
-                String last;
-
-                String[] strSp = str.split(" ",2);/* Instruçao para separar o nome do apelido. Cria um array de String 
-                String first = strSp[0];
-                String[] nameMiddle = strSp[1].split(" ", 2);/*
-                                                              * Instruçao para separar os apelidos com duas palavras
-                                                              * (Ex:Elmer dos Santos). Cria um array de String (ex:[dos, Santos])
-                                                              
-
-                if (nameMiddle.length > 1) {/* Se o apelido tiver duas palavras: (ex:Elmes dos Santos)
-
-                    last = nameMiddle[1];// Armazenar o ultimo elemento do array, que sera o apelido, na variavel last [dos, santos]
-                } else {
-                    last = nameMiddle[0];// Caso o array tiver um elemento, esse elemento sera o apelido ex:Bruno Angelo
-                                        //array = [angelo]
-                }*/
-                
-                if(aluno == null)continue;
-                if ((aluno.toLowerCase()).contains(nome.toLowerCase())) {// Testar se foi introduzido o apelido
-                                                                                  // ou o primeiro nome
-          
-                    System.out.println(aluno);// Mostrar o(s) nome(s)/apelido(s) pesquisados
-                }
-            
+            if (aluno == null)
+                continue;
+            if ((aluno.toLowerCase()).contains(nome.toLowerCase())) {
+                System.out.println(aluno);
+            }
 
         }
 
@@ -494,12 +466,13 @@ public class TP1 {
             interC.showMsg("Nao ha dados ...");
             return;
         }
-      
+
         System.out.println("Nome estudante" + "     " + "Notas");
-        for (int i = 0; i < notasAlunos.length; i++) {
+        for (int i = 0; i < alunosLidos; i++) {
             if (nota == notasAlunos[i]) {
-                System.out.println(nomeAlunos[i] + "  " + notasAlunos[i]);
-            } 
+                System.out.printf("%-20s", nomeAlunos[i]);
+                System.out.println(notasAlunos[i]);
+            }
         }
 
         interC.showMsg("Enter para continuar ...");
