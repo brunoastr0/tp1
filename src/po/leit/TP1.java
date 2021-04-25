@@ -307,10 +307,11 @@ public class TP1 {
         calcularMaxMinAvg();
         System.out.println("-------------------------------------------");
 
-        for (int i = 0; i < notasAlunos.length; i++) {
+        for (int i = 0; i < alunosLidos; i++) {
             if (notasAlunos[i] > notaAvg) { // Se encontrar uma nota maior que a media
                 contSup++; // incrementar o valor da variavel contSup(contar superior)
             } else
+            
                 contInf++; // caso contrario incrementar a variavel contInf(contar inferior)
 
         }
